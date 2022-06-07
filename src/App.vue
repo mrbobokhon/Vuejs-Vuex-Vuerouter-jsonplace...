@@ -1,11 +1,51 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About </router-link>
+    <button @click="getUsers">GetUsers</button>
+    <button @click="forward">Forward</button>
+    <button @click="back">back</button>
+    <button @click="redirect">redirect</button>
   </div>
+  <!-- {{getAll}} -->
   <router-view/>
 </template>
-
+<script>
+import { mapState , mapActions} from 'vuex'
+export default{
+  name: "App",
+  data() {
+    return {
+    }
+  },
+  methods:{
+              ...mapActions([
+      'getUsers'
+    ]),
+    forward(){
+      this.$router.go(1)
+    },
+      back(){
+      this.$router.go(-1)
+    },
+      redirect(){
+      this.$router.push({name:"Home"})
+    },
+  },
+  computed:{
+          ...mapState([
+        'users', 'counter'
+      ]),
+      getAll(){
+        this.getUsers
+        return this.users
+      }
+  },
+  mounted() {
+    this.getUsers
+  },
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
